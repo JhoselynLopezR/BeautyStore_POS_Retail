@@ -1,5 +1,38 @@
 <?php
+
 include("config/conexion.php");
+
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $usuario = $_POST['usuario'];
+    $password = hash('sha256', $_POST['password']);
+
+    $sql = "SELECT * FROM empleados 
+            WHERE usuario = '$usuario' 
+            AND password = '$password'
+            AND estado = 'activo'";
+
+    $resultado = $conexion->query($sql);
+
+    if ($resultado->num_rows > 0) {
+
+        $datos = $resultado->fetch_assoc();
+
+        $_SESSION['usuario'] = $datos['usuario'];
+        $_SESSION['nombre'] = $datos['nombre_completo'];
+
+        header("Location: dashboard.php");
+        exit();
+
+    } else {
+
+        $error = "Usuario o contraseña incorrectos";
+
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -20,16 +53,28 @@ include("config/conexion.php");
 
         <h2 class="text-center mb-4">Iniciar Sesión</h2>
 
-        <form>
+        <?php if(isset($error)) { ?>
+            <div class="alert alert-danger">
+                <?php echo $error; ?>
+            </div>
+        <?php } ?>
+
+        <form method="POST">
 
             <div class="mb-3">
                 <label class="form-label">Usuario</label>
-                <input type="text" class="form-control" placeholder="Ingrese su usuario">
+                <input type="text" 
+                       name="usuario"
+                       class="form-control" 
+                       required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Contraseña</label>
-                <input type="password" class="form-control" placeholder="Ingrese su contraseña">
+                <input type="password" 
+                       name="password"
+                       class="form-control" 
+                       required>
             </div>
 
             <button type="submit" class="btn btn-dark w-100">
