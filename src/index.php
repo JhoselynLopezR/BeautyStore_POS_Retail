@@ -20,6 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $datos = $resultado->fetch_assoc();
 
+        // Reiniciar intentos fallidos
+        $reset = "UPDATE empleados 
+                  SET intentos_fallidos = 0 
+                  WHERE id_empleado = {$datos['id_empleado']}";
+
+        $conexion->query($reset);
+
         $_SESSION['usuario'] = $datos['usuario'];
         $_SESSION['nombre'] = $datos['nombre_completo'];
 
@@ -28,9 +35,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } else {
 
-        $error = "Usuario o contraseña incorrectos";
+        // Buscar usuario aunque contraseña sea incorrecta
+        $buscarUsuario = "SELECT * FROM empleados 
+                          WHERE usuario = '$usuario'";
+
+        $resultadoUsuario = $conexion->query($buscarUsuario);
+
+        if ($resultadoUsuario->num_rows > 0) {
+
+            $usuarioDatos = $resultadoUsuario->fetch_assoc();
+
+            $intentos = $usuarioDatos['intentos_fallidos'] + 1;
+
+            if ($intentos >= 3) {
+
+                $bloquear = "UPDATE empleados 
+                             SET intentos_fallidos = $intentos,
+                                 estado = 'bloqueado',
+                                 fecha_bloqueo = NOW()
+                             WHERE id_empleado = {$usuarioDatos['id_empleado']}";
+
+                $conexion->query($bloquear);
+
+                $error = "Usuario bloqueado por demasiados intentos fallidos.";
+
+            } else {
+
+                $actualizar = "UPDATE empleados 
+                               SET intentos_fallidos = $intentos
+                               WHERE id_empleado = {$usuarioDatos['id_empleado']}";
+
+                $conexion->query($actualizar);
+
+                $error = "Usuario o contraseña incorrectos.";
+
+            }
+
+        } else {
+
+            $error = "Usuario o contraseña incorrectos.";
+
+        }
 
     }
+
 }
 
 ?>
