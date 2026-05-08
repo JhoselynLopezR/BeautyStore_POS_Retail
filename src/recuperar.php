@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Guatemala');
 include("config/conexion.php");
 
 $mensaje = "";
