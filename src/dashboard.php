@@ -251,7 +251,7 @@ body{
             Ventas
         </a>
 
-        <a href="#">
+        <a href="productos.php">
             <i class="fa-solid fa-box"></i>
             Productos
         </a>
