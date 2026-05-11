@@ -261,7 +261,7 @@ body{
             Clientes
         </a>
 
-        <a href="#">
+        <a href="proveedores.php">
             <i class="fa-solid fa-truck"></i>
             Proveedores
         </a>

@@ -94,7 +94,7 @@ setTimeout(() => {
                     <th>Correo</th>
                     <th>Rol</th>
                     <th>Estado</th>
-                    <th style="width: 180px;">Acciones</th>
+                    <th style="width: 170px;">Acciones</th>
 
                 </tr>
 
@@ -146,7 +146,8 @@ setTimeout(() => {
                         <?php if($fila['id_empleado'] != 1){ ?>
 
                             <a href="eliminar_usuario.php?id=<?php echo $fila['id_empleado']; ?>"
-                               class="btn btn-danger btn-sm">
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('¿Desea eliminar este usuario?')">
 
                                Eliminar
 
