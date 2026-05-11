@@ -33,13 +33,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($conexion->query($sql)) {
 
-        $mensaje = "Usuario registrado correctamente.";
+    header("Location: usuarios.php?mensaje=creado");
+    exit();
 
     } else {
 
-        $mensaje = "Error al registrar usuario.";
+    $mensaje = "Error al registrar usuario.";
 
-    }
+}
 
 }
 
@@ -116,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         class="form-select"
                         required>
 
-                    <option value="">
+                    <option value="" selected disabled>
                         Seleccione un rol
                     </option>
 
