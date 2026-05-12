@@ -231,29 +231,30 @@ body{
 
     <div class="menu">
 
-        <a href="#" class="active">
+        <!-- INICIO -->
+
+        <a href="dashboard.php" class="active">
             <i class="fa-solid fa-house"></i>
             Inicio
         </a>
+
+        <!-- SEGURIDAD -->
 
         <a href="usuarios.php">
             <i class="fa-solid fa-users"></i>
             Usuarios
         </a>
 
-        <a href="compras.php">
-            <i class="fa-solid fa-cart-shopping"></i>
-            Compras
-        </a>
-
-        <a href="#">
-            <i class="fa-solid fa-bag-shopping"></i>
-            Ventas
-        </a>
+        <!-- PRODUCTOS -->
 
         <a href="productos.php">
             <i class="fa-solid fa-box"></i>
             Productos
+        </a>
+
+        <a href="proveedores.php">
+            <i class="fa-solid fa-truck"></i>
+             Proveedores
         </a>
 
         <a href="#">
@@ -261,37 +262,56 @@ body{
             Clientes
         </a>
 
-        <a href="proveedores.php">
-            <i class="fa-solid fa-truck"></i>
-            Proveedores
+        <a href="#">
+             <i class="fa-solid fa-boxes-stacked"></i>
+             Kardex / Inventario
         </a>
 
-        <a href="#">
-            <i class="fa-solid fa-boxes-stacked"></i>
-            Kardex / Inventario
+        <!-- COMPRAS -->
+
+        <a href="compras.php">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Compras
         </a>
 
-        <a href="#">
-            <i class="fa-solid fa-money-bill-wave"></i>
-            Cuentas por Cobrar
-        </a>
-
-        <a href="#">
+        <a href="cuentas_por_pagar.php">
             <i class="fa-solid fa-file-invoice-dollar"></i>
             Cuentas por Pagar
         </a>
+
+        <a href="pagos_proveedores.php">
+            <i class="fa-solid fa-money-bill-wave"></i>
+            Pagos Proveedores
+        </a>
+
+        <!-- VENTAS -->
+
+        <a href="#">
+            <i class="fa-solid fa-bag-shopping"></i>
+            Ventas
+        </a>
+
+        <a href="#">
+            <i class="fa-solid fa-money-check-dollar"></i>
+            Cuentas por Cobrar
+        </a>
+
+        <!-- REPORTES -->
 
         <a href="#">
             <i class="fa-solid fa-chart-column"></i>
             Reportes
         </a>
 
+       <!-- CONFIGURACIÓN -->
+
         <a href="#">
             <i class="fa-solid fa-gear"></i>
-            Configuración
+             Configuración
         </a>
 
-    </div>
+     </div>
+     
 </div>
 
 </div>

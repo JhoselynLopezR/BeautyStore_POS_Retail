@@ -84,7 +84,28 @@ if(isset($_POST['id_proveedor'])){
             $conexion->query($sql_stock);
 
         }
+ 
+    if($metodo_pago == 'credito'){
 
+       $fecha_vencimiento = date('Y-m-d', strtotime('+30 days'));
+
+        $sql_cpp = "INSERT INTO cuentas_por_pagar
+                (id_compra,
+                 saldo_total,
+                 fecha_vencimiento,
+                 estado)
+
+                VALUES
+
+                ('$id_compra',
+                 '$total',
+                 '$fecha_vencimiento',
+                 'pendiente')";
+
+    $conexion->query($sql_cpp);
+
+}
+       
         header("Location: compras.php?mensaje=creado");
 
     }else{
