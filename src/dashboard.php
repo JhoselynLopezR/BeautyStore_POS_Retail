@@ -241,7 +241,7 @@ body{
             Usuarios
         </a>
 
-        <a href="#">
+        <a href="compras.php">
             <i class="fa-solid fa-cart-shopping"></i>
             Compras
         </a>
