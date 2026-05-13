@@ -113,6 +113,27 @@ if(isset($_POST['id_cliente'])){
             $conexion->query($sql_kardex);
 
         }
+        
+    if($metodo_pago == 'credito'){
+
+          $fecha_vencimiento = date('Y-m-d', strtotime('+30 days'));
+
+          $sql_cxc = "INSERT INTO cuentas_por_cobrar
+                      (id_factura,
+                       saldo_total,
+                       fecha_vencimiento,
+                       estado)
+
+                       VALUES
+
+                       ('$id_factura',
+                       '$total',
+                       '$fecha_vencimiento',
+                       'pendiente')";
+
+            $conexion->query($sql_cxc);
+
+}
 
         header("Location: ventas.php?mensaje=creado");
 
@@ -345,6 +366,10 @@ if(isset($_POST['id_cliente'])){
 
                             <option value="transferencia">
                                 Transferencia
+                            </option>
+
+                            <option value="credito">
+                                Crédito
                             </option>
 
                         </select>

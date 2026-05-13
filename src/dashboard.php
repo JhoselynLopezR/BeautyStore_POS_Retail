@@ -296,9 +296,14 @@ body{
             Ventas
         </a>
 
-        <a href="#">
+        <a href="cuentas_por_cobrar.php">
             <i class="fa-solid fa-money-check-dollar"></i>
             Cuentas por Cobrar
+        </a>
+
+        <a href="pagos_clientes.php">
+            <i class="fa-solid fa-money-bill-wave"></i>
+            Pagos Clientes
         </a>
 
         <!-- REPORTES -->
