@@ -108,6 +108,7 @@ $resultado = $conexion->query($sql);
                     <th>Fecha</th>
                     <th>Método Pago</th>
                     <th>Total</th>
+                    <th>Acciones</th>
 
                 </tr>
 
@@ -136,6 +137,18 @@ $resultado = $conexion->query($sql);
                         Q<?php echo $fila['total']; ?>
 
                     </td>
+                    </td>
+
+                   <td>
+
+                         <a href="detalle_compra.php?id=<?php echo $fila['id_compra']; ?>"
+                            class="btn btn-primary btn-sm">
+
+                            Ver detalle
+
+                       </a>
+
+                 </td>
 
                 </tr>
 

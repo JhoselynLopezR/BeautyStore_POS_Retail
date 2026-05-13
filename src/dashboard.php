@@ -291,7 +291,7 @@ body{
 
         <!-- VENTAS -->
 
-        <a href="#">
+        <a href="ventas.php">
             <i class="fa-solid fa-bag-shopping"></i>
             Ventas
         </a>

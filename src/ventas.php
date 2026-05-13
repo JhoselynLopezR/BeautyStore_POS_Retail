@@ -1,4 +1,4 @@
-<?php
+<<?php
 
 session_start();
 
@@ -9,18 +9,15 @@ if (!isset($_SESSION['usuario'])) {
 
 include("config/conexion.php");
 
-$sql = "SELECT devoluciones_compras.*,
-               proveedores.nombre_empresa
+$sql = "SELECT facturas.*,
+               clientes.nombre
 
-        FROM devoluciones_compras
+        FROM facturas
 
-        INNER JOIN compras
-        ON devoluciones_compras.id_compra = compras.id_compra
+        INNER JOIN clientes
+        ON facturas.id_cliente = clientes.id_cliente
 
-        INNER JOIN proveedores
-        ON compras.id_proveedor = proveedores.id_proveedor
-
-        ORDER BY devoluciones_compras.id_dev_compra DESC";
+        ORDER BY id_factura DESC";
 
 $resultado = $conexion->query($sql);
 
@@ -36,7 +33,7 @@ $resultado = $conexion->query($sql);
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Devoluciones Compras</title>
+    <title>Ventas</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet">
@@ -45,20 +42,50 @@ $resultado = $conexion->query($sql);
 
 <body class="bg-light">
 
+<?php if(isset($_GET['mensaje']) && $_GET['mensaje'] == 'creado'){ ?>
+
+    <div class="position-fixed top-0 start-50 translate-middle-x p-3"
+         style="z-index: 9999">
+
+        <div class="alert alert-success shadow"
+             id="alerta-exito">
+
+            Venta registrada correctamente.
+
+        </div>
+
+    </div>
+
+<?php } ?>
+
 <div class="container mt-5">
 
     <div class="card shadow p-4">
 
+<script>
+
+setTimeout(() => {
+
+    const alerta = document.getElementById('alerta-exito');
+
+    if(alerta){
+        alerta.style.display = 'none';
+    }
+
+}, 3000);
+
+</script>
+
         <div class="d-flex justify-content-between align-items-center mb-4">
 
-            <h2>Devoluciones de Compras</h2>
+            <h2>Gestión de Ventas</h2>
 
             <div>
 
-                <a href="registrar_devolucion_compra.php"
+                <a href="crear_venta.php"
                    class="btn btn-success me-2">
 
-                   Nueva Devolución
+                   Nueva Venta
 
                 </a>
 
@@ -80,9 +107,10 @@ $resultado = $conexion->query($sql);
                 <tr>
 
                     <th>ID</th>
-                    <th>Proveedor</th>
+                    <th>Cliente</th>
+                    <th>Total</th>
+                    <th>Método Pago</th>
                     <th>Fecha</th>
-                    <th>Motivo</th>
                     <th>Acciones</th>
 
                 </tr>
@@ -97,13 +125,25 @@ $resultado = $conexion->query($sql);
 
                     <td>
 
-                        <?php echo $fila['id_dev_compra']; ?>
+                        <?php echo $fila['id_factura']; ?>
 
                     </td>
 
                     <td>
 
-                        <?php echo $fila['nombre_empresa']; ?>
+                        <?php echo $fila['nombre']; ?>
+
+                    </td>
+
+                    <td>
+
+                        Q<?php echo $fila['total']; ?>
+
+                    </td>
+
+                    <td>
+
+                        <?php echo ucfirst($fila['metodo_pago']); ?>
 
                     </td>
 
@@ -115,13 +155,7 @@ $resultado = $conexion->query($sql);
 
                     <td>
 
-                        <?php echo $fila['motivo']; ?>
-
-                    </td>
-
-                    <td>
-
-                        <a href="detalle_devolucion_compra.php?id=<?php echo $fila['id_dev_compra']; ?>"
+                        <a href="detalle_venta.php?id=<?php echo $fila['id_factura']; ?>"
                            class="btn btn-primary btn-sm">
 
                            Ver detalle
