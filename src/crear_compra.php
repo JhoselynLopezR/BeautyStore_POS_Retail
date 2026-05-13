@@ -84,6 +84,27 @@ if(isset($_POST['id_proveedor'])){
             $conexion->query($sql_stock);
 
         }
+
+            $sql_kardex = "INSERT INTO kardex
+               (id_producto,
+                tipo_movimiento,
+                cantidad,
+                stock_resultante,
+                descripcion)
+
+               VALUES
+
+               ('$id_producto',
+                'COMPRA',
+                '$cantidad',
+                (SELECT stock_actual
+                 FROM productos
+                 WHERE id_producto = '$id_producto'),
+                'Entrada por compra')";
+
+            $conexion->query($sql_kardex);
+
+        
  
     if($metodo_pago == 'credito'){
 

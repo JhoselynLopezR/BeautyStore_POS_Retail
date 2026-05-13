@@ -262,7 +262,7 @@ body{
             Clientes
         </a>
 
-        <a href="#">
+        <a href="kardex.php">
              <i class="fa-solid fa-boxes-stacked"></i>
              Kardex / Inventario
         </a>
@@ -282,6 +282,11 @@ body{
         <a href="pagos_proveedores.php">
             <i class="fa-solid fa-money-bill-wave"></i>
             Pagos Proveedores
+        </a>
+
+        <a href="devoluciones_compras.php">
+            <i class="fa-solid fa-rotate-left"></i>
+            Devoluciones Compras
         </a>
 
         <!-- VENTAS -->
@@ -311,7 +316,7 @@ body{
         </a>
 
      </div>
-     
+
 </div>
 
 </div>
