@@ -82,7 +82,7 @@ if(isset($_POST['guardar'])){
                         (SELECT stock_actual
                          FROM productos
                          WHERE id_producto = '$id_producto'),
-                        'Salida por devolución compra')";
+                        'Salida por devolución compra DEV-COM-$id_dev_compra')";
 
         $conexion->query($sql_kardex);
 

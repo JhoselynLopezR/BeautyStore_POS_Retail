@@ -100,7 +100,7 @@ if(isset($_POST['id_proveedor'])){
                 (SELECT stock_actual
                  FROM productos
                  WHERE id_producto = '$id_producto'),
-                'Entrada por compra')";
+                'Entrada por compra COM-$id_compra')";
 
             $conexion->query($sql_kardex);
 

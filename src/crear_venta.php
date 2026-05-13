@@ -37,24 +37,24 @@ if(isset($_POST['id_cliente'])){
 
     }
 
-   $id_empleado = $_SESSION['id_empleado'];
+    $id_empleado = $_SESSION['id_empleado'];
 
-   $numero_factura = "FAC-" . time();
+    $numero_factura = "FAC-" . time();
 
-   $sql_factura = "INSERT INTO facturas
-                (id_cliente,
-                 id_empleado,
-                 numero_factura,
-                 total,
-                 metodo_pago)
+    $sql_factura = "INSERT INTO facturas
+                    (id_cliente,
+                     id_empleado,
+                     numero_factura,
+                     total,
+                     metodo_pago)
 
-                VALUES
+                    VALUES
 
-                ('$id_cliente',
-                 '$id_empleado',
-                 '$numero_factura',
-                 '$total',
-                 '$metodo_pago')";
+                    ('$id_cliente',
+                     '$id_empleado',
+                     '$numero_factura',
+                     '$total',
+                     '$metodo_pago')";
 
     if($conexion->query($sql_factura)){
 
@@ -69,6 +69,38 @@ if(isset($_POST['id_cliente'])){
             $precio = $precios[$i];
 
             $subtotal = str_replace('Q', '', $subtotales[$i]);
+
+            $consulta_stock = $conexion->query("SELECT stock_actual
+                                                FROM productos
+                                                WHERE id_producto = '$id_producto'");
+
+            $datos_stock = $consulta_stock->fetch_assoc();
+
+            $stock_actual = $datos_stock['stock_actual'];
+
+            if($cantidad > $stock_actual){
+
+                $conexion->query("DELETE FROM detalle_facturas
+                                  WHERE id_factura = '$id_factura'");
+
+                $conexion->query("DELETE FROM facturas
+                                  WHERE id_factura = '$id_factura'");
+
+                echo "
+
+                <script>
+
+                    alert('Stock insuficiente para realizar la venta');
+
+                    window.location='crear_venta.php';
+
+                </script>
+
+                ";
+
+                exit();
+
+            }
 
             $sql_detalle = "INSERT INTO detalle_facturas
                             (id_factura,
@@ -108,32 +140,32 @@ if(isset($_POST['id_cliente'])){
                             (SELECT stock_actual
                              FROM productos
                              WHERE id_producto = '$id_producto'),
-                            'Salida por venta')";
+                            'Salida por venta $numero_factura')";
 
             $conexion->query($sql_kardex);
 
         }
-        
-    if($metodo_pago == 'credito'){
 
-          $fecha_vencimiento = date('Y-m-d', strtotime('+30 days'));
+        if($metodo_pago == 'credito'){
 
-          $sql_cxc = "INSERT INTO cuentas_por_cobrar
-                      (id_factura,
-                       saldo_total,
-                       fecha_vencimiento,
-                       estado)
+            $fecha_vencimiento = date('Y-m-d', strtotime('+30 days'));
 
-                       VALUES
+            $sql_cxc = "INSERT INTO cuentas_por_cobrar
+                        (id_factura,
+                         saldo_total,
+                         fecha_vencimiento,
+                         estado)
 
-                       ('$id_factura',
-                       '$total',
-                       '$fecha_vencimiento',
-                       'pendiente')";
+                         VALUES
+
+                         ('$id_factura',
+                          '$total',
+                          '$fecha_vencimiento',
+                          'pendiente')";
 
             $conexion->query($sql_cxc);
 
-}
+        }
 
         header("Location: ventas.php?mensaje=creado");
 
