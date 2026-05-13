@@ -257,7 +257,7 @@ body{
              Proveedores
         </a>
 
-        <a href="#">
+        <a href="clientes.php">
             <i class="fa-solid fa-address-book"></i>
             Clientes
         </a>
