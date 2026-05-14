@@ -306,6 +306,11 @@ body{
             Pagos Clientes
         </a>
 
+        <a href="devoluciones_ventas.php">
+            <i class="fa-solid fa-rotate-left"></i>
+            Devoluciones Ventas
+        </a>
+        
         <!-- REPORTES -->
 
         <a href="#">
