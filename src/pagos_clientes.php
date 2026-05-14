@@ -88,6 +88,7 @@ $resultado = $conexion->query($sql);
                     <th>Método</th>
                     <th>Descripción</th>
                     <th>Fecha</th>
+                    <th width="130">Acciones</th>
 
                 </tr>
 
@@ -132,6 +133,17 @@ $resultado = $conexion->query($sql);
                     <td>
 
                         <?php echo $fila['fecha']; ?>
+
+                    </td>
+
+                    <td>
+
+                       <a href="comprobante_pago_cliente.php?id=<?php echo $fila['id_pago']; ?>"
+                          class="btn btn-success btn-sm">
+
+                          Comprobante
+
+                        </a>
 
                     </td>
 

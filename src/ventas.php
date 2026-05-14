@@ -111,7 +111,7 @@ setTimeout(() => {
                     <th>Total</th>
                     <th>Método Pago</th>
                     <th>Fecha</th>
-                    <th>Acciones</th>
+                    <th width="220">Acciones</th>
 
                 </tr>
 
@@ -162,7 +162,14 @@ setTimeout(() => {
 
                         </a>
 
-                    </td>
+                        <a href="comprobante_venta.php?id=<?php echo $fila['id_factura']; ?>"
+                           class="btn btn-success btn-sm">
+
+                           Comprobante
+
+                        </a>
+
+                     </td>
 
                 </tr>
 
