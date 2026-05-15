@@ -167,6 +167,31 @@ if(isset($_POST['id_cliente'])){
 
         }
 
+        if($metodo_pago != 'credito'){
+
+            $medio_pago = ($metodo_pago == 'efectivo')
+                            ? 'efectivo'
+                            : 'banco';
+
+            $sql_caja = "INSERT INTO caja
+                        (id_empleado,
+                        tipo_movimiento,
+                        monto,
+                        medio_pago,
+                        descripcion)
+
+                       VALUES
+
+                        ('$id_empleado',
+                        'ingreso',
+                        '$total',
+                        '$medio_pago',
+                        'Ingreso por venta $numero_factura')";
+
+            $conexion->query($sql_caja);
+
+}
+
         header("Location: ventas.php?mensaje=creado");
 
     }else{

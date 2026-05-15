@@ -76,6 +76,29 @@ if(isset($_POST['guardar'])){
 
         }
 
+        $id_empleado = $_SESSION['id_empleado'];
+
+        $medio_pago = ($metodo_pago == 'efectivo')
+                       ? 'efectivo'
+                       : 'banco';
+
+        $sql_caja = "INSERT INTO caja
+                    (id_empleado,
+                    tipo_movimiento,
+                    monto,
+                    medio_pago,
+                    descripcion)
+
+                   VALUES
+
+                    ('$id_empleado',
+                   'ingreso',
+                   '$monto',
+                   '$medio_pago',
+                   'Ingreso por pago cliente')";
+
+$conexion->query($sql_caja);
+
         header("Location: pagos_clientes.php");
 
     }else{

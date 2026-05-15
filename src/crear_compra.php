@@ -83,50 +83,75 @@ if(isset($_POST['id_proveedor'])){
 
             $conexion->query($sql_stock);
 
-        }
-
             $sql_kardex = "INSERT INTO kardex
-               (id_producto,
-                tipo_movimiento,
-                cantidad,
-                stock_resultante,
-                descripcion)
+                           (id_producto,
+                            tipo_movimiento,
+                            cantidad,
+                            stock_resultante,
+                            descripcion)
 
-               VALUES
+                           VALUES
 
-               ('$id_producto',
-                'COMPRA',
-                '$cantidad',
-                (SELECT stock_actual
-                 FROM productos
-                 WHERE id_producto = '$id_producto'),
-                'Entrada por compra COM-$id_compra')";
+                           ('$id_producto',
+                            'COMPRA',
+                            '$cantidad',
+                            (SELECT stock_actual
+                             FROM productos
+                             WHERE id_producto = '$id_producto'),
+                            'Entrada por compra COM-$id_compra')";
 
             $conexion->query($sql_kardex);
 
-        
- 
-    if($metodo_pago == 'credito'){
+        }
 
-       $fecha_vencimiento = date('Y-m-d', strtotime('+30 days'));
+        if($metodo_pago == 'credito'){
 
-        $sql_cpp = "INSERT INTO cuentas_por_pagar
-                (id_compra,
-                 saldo_total,
-                 fecha_vencimiento,
-                 estado)
+            $fecha_vencimiento = date('Y-m-d', strtotime('+30 days'));
 
-                VALUES
+            $sql_cpp = "INSERT INTO cuentas_por_pagar
+                        (id_compra,
+                         saldo_total,
+                         fecha_vencimiento,
+                         estado)
 
-                ('$id_compra',
-                 '$total',
-                 '$fecha_vencimiento',
-                 'pendiente')";
+                        VALUES
 
-    $conexion->query($sql_cpp);
+                        ('$id_compra',
+                         '$total',
+                         '$fecha_vencimiento',
+                         'pendiente')";
 
-}
-       
+            $conexion->query($sql_cpp);
+
+        }
+
+        if($metodo_pago != 'credito'){
+
+            $medio_pago = ($metodo_pago == 'efectivo')
+                            ? 'efectivo'
+                            : 'banco';
+
+            $id_empleado = $_SESSION['id_empleado'];
+
+            $sql_caja = "INSERT INTO caja
+                         (id_empleado,
+                          tipo_movimiento,
+                          monto,
+                          medio_pago,
+                          descripcion)
+
+                         VALUES
+
+                         ('$id_empleado',
+                          'egreso',
+                          '$total',
+                          '$medio_pago',
+                          'Egreso por compra COM-$id_compra')";
+
+            $conexion->query($sql_caja);
+
+        }
+
         header("Location: compras.php?mensaje=creado");
 
     }else{
@@ -308,8 +333,6 @@ if(isset($_POST['id_proveedor'])){
 
             </div>
 
-            <!-- BOTÓN AGREGAR -->
-
             <div class="mt-4">
 
                 <button type="button"
@@ -321,8 +344,6 @@ if(isset($_POST['id_proveedor'])){
                 </button>
 
             </div>
-
-            <!-- PANEL INFERIOR -->
 
             <div class="d-flex justify-content-end mt-5">
 

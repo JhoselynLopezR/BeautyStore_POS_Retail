@@ -318,6 +318,11 @@ body{
             Reportes
         </a>
 
+        <a href="caja.php">
+            <i class="fa-solid fa-cash-register"></i>
+             Caja
+        </a>
+
        <!-- CONFIGURACIÓN -->
 
         <a href="#">
