@@ -313,7 +313,7 @@ body{
         
         <!-- REPORTES -->
 
-        <a href="#">
+        <a href="reporte_ventas.php">
             <i class="fa-solid fa-chart-column"></i>
             Reportes
         </a>
